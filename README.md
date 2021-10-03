@@ -1,5 +1,6 @@
 # ManifestGet
 Getting manifest from Steam using C# and Steamctl (Python)
+Made by LordElias, SlejmUr and JVAV
 
 Committing the funny here
 
