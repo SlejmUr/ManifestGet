@@ -25,7 +25,7 @@
                     try
                     {
                         var lines = File.ReadLines(filename);
-                        if (lines.Count() <= 30)
+                        if (lines.Count() >= 30)
                         {
                             Console.WriteLine("Line count up to 30! | You may get RateLimited!");
                         }
