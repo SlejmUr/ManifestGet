@@ -1,11 +1,19 @@
-# ManifestGet
+# First Start
 Getting manifest from Steam using C# and Steamctl (Python)\
 Made by LordElias, SlejmUr and JVAV
 
-Committing the funny here
+### This is the Main Branch!
 
-Catto :3
+# Steamctl Installing/Downloading
+1. You need python, install it. (Recommending Python 3)
+2. After installed and added to path, use this command\
+`pip install steamctl`
+3. You are completely done!\
+Check steamctl for this python production!
+[This Link!](https://github.com/ValvePython/steamctl)
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+# ManifestGet Installing/Downloading
+Todo
 
-edited via vs2019
+## Using
+Todo
