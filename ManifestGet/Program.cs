@@ -61,7 +61,7 @@ namespace ManifestGet
                 Console.WriteLine("Please type filename or path to ManifestID list");
                 filename = Console.ReadLine();
                 */
-                if (username == "") { username = "matecraft1111"; } //Add anonym user, but it will be not decrypt anything
+                if (username == "") { Console.WriteLine("No username, no decryption, try again. Write your username again!"); username = Console.ReadLine(); } //Add anonym user, but it will be not decrypt anything
                 if (AppID == "") { AppID = "359550"; } //Siege default
                 if (DepotID == "") { DepotID = "377237"; } //Siege default
                 //Check if ID or Path
@@ -71,7 +71,7 @@ namespace ManifestGet
                     try
                     {
                         var lines = File.ReadLines(filename);
-                        if (lines.Count() <= 30)
+                        if (lines.Count() >= 30)
                         {
                             Console.WriteLine("Line count up to 30! | You may get RateLimited!");
                         }
