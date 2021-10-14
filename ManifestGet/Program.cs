@@ -16,35 +16,7 @@ namespace ManifestGet
         {
 
             string AppID = "359550", DepotID = "359551", ManifestID = "", username = "", filename = "",file_or_ID = ""; //siege stuff
-            Console.WriteLine("You are: " + Environment.UserName);
-            Console.WriteLine(@"C:\Users\" + Environment.UserName + @"\AppData\Local\steamctl\steamctl\Cache\manifests");
-            string SteamCTLmanifestsPath = "Users\\" + Environment.UserName + "\\AppData\\Local\\steamctl\\steamctl\\Cache\\manifests";
-            string[] fileArray = Directory.GetFiles(@"C:\" + SteamCTLmanifestsPath, "*.*");
-            Console.WriteLine(SteamCTLmanifestsPath);
-            foreach (string file in fileArray)
-            {
-                if (file.Contains(".manifest"))
-                {
-                    continue;
-                }
-                else
-                {
-                    if (File.Exists(file + ".manifest") == false)
-                    {
-                        File.Move(file, file + ".manifest");
-                        string fileNAME = Path.GetFileName(file);
-                        File.Copy(file + ".manifest", CurrentDir + "\\" +  fileNAME + ".manifest"); //just trying
-                    }
-                    else
-                    {
-                        Console.WriteLine("File already exist!");
-                    }
-                }
-
-            }
-
-
-
+            
             if (args.Length == 0)
             {
                 Console.WriteLine("Please type your UserName");
@@ -74,6 +46,7 @@ namespace ManifestGet
                         if (lines.Count() >= 30)
                         {
                             Console.WriteLine("Line count up to 30! | You may get RateLimited!");
+                            Console.ReadLine();
                         }
                         foreach (var line in lines)
                         {
@@ -113,11 +86,7 @@ namespace ManifestGet
             {
 
             }
-            
-
-
-
-
+            CopyManifests();
             Console.ReadLine();
             Environment.Exit(0);
         }
@@ -136,6 +105,36 @@ namespace ManifestGet
             process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
             process.Start();
             process.WaitForExit();
+            Console.WriteLine("\nDone!\n");
+        }
+        
+        private static void CopyManifests()
+        {
+            Console.WriteLine("You are: " + Environment.UserName);
+            Console.WriteLine(@"C:\Users\" + Environment.UserName + @"\AppData\Local\steamctl\steamctl\Cache\manifests");
+            string SteamCTLmanifestsPath = "Users\\" + Environment.UserName + "\\AppData\\Local\\steamctl\\steamctl\\Cache\\manifests";
+            string[] fileArray = Directory.GetFiles(@"C:\" + SteamCTLmanifestsPath, "*.*");
+            Console.WriteLine(SteamCTLmanifestsPath);
+            foreach (string file in fileArray)
+            {
+                if (file.Contains(".manifest"))
+                {
+                    continue;
+                }
+                else
+                {
+                    if (File.Exists(file + ".manifest") == false)
+                    {
+                        File.Move(file, file + ".manifest");
+                        string fileNAME = Path.GetFileName(file);
+                        File.Copy(file + ".manifest", CurrentDir + "\\ManifestFiles\\" +  fileNAME + ".manifest");
+                    }
+                    else
+                    {
+                        Console.WriteLine("File already exist!");
+                    }
+                }
+            }
             Console.WriteLine("\nDone!\n");
         }
     }
