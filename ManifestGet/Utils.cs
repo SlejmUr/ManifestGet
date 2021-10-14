@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.ComponentModel;
 using System.IO;
 
 namespace ManifestGet
@@ -18,6 +19,23 @@ namespace ManifestGet
             }
 
             return -1;
+        }
+        public static T GetParameter<T>(string[] args, string param, T defaultValue = default(T))
+        {
+            var index = IndexOfParam(args, param);
+
+            if (index == -1 || index == (args.Length - 1))
+                return defaultValue;
+
+            var strParam = args[index + 1];
+
+            var converter = TypeDescriptor.GetConverter(typeof(T));
+            if (converter != null)
+            {
+                return (T)converter.ConvertFromString(strParam);
+            }
+
+            return default(T);
         }
         public static void WriteToFile(string msg, string filename)
         {
