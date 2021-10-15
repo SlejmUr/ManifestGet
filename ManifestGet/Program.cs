@@ -45,7 +45,7 @@ namespace ManifestGet
             var _DepotID = Utils.GetParameter<string>(args, "-DepotID") ?? Utils.GetParameter<string>(args, "-depot") ?? Utils.GetParameter<string>(args, "-d");
             var _ManifestID = Utils.GetParameter<string>(args, "-ManifestID") ?? Utils.GetParameter<string>(args, "-manifest") ?? Utils.GetParameter<string>(args, "-m");
             var _filename = Utils.GetParameter<string>(args, "-fl") ?? Utils.GetParameter<string>(args, "-filelist") ?? Utils.GetParameter<string>(args, "-manifestlist");
-            var _username = Utils.GetParameter<string>(args, "-username") ?? Utils.GetParameter<string>(args, "-user");
+            var _username = Utils.GetParameter<string>(args, "-username") ?? Utils.GetParameter<string>(args, "-user") ?? Utils.GetParameter<string>(args, "-u");
             //IF to write it
             if (_AppID != null)
             {
@@ -62,22 +62,23 @@ namespace ManifestGet
 
             if (_username == null)
             {
+                //If username Null,no decryption for that key, asking again.
                 Console.WriteLine("No username, no decryption, try again. Write your username!");
                 username = Console.ReadLine();
             }
-            //TODO: Arg parser
             if (filename != null)
             {
+                //Got FileName argument, using that filename to foreach all line
                 Console.WriteLine("FileName! Using [" + filename + "] to get manifest list");
                 TryManifest(AppID, filename, DepotID, username);
             }
             if (ManifestID != null)
             {
-                Console.WriteLine("Username and Manifest is avaible!");
+                //Got Manifest from argument, using that ID to get it.
+                Console.WriteLine("Manifest [" + ManifestID +"] is avaible!");
                 GetManifestStuff(AppID, DepotID, ManifestID, username);
             }
-
-
+            //Copy Manifest File to Current WorkDir
             CopyManifests();
             Console.WriteLine("Goodbye!");
             Environment.Exit(0);
@@ -92,8 +93,7 @@ namespace ManifestGet
                 return;
             }
             Console.WriteLine(AppID + " " + depotID + " " + manifestId + " " + user);
-            /*string manifestPath,byte[] deckey*/
-            //359550_359551_1610834739284564851
+            //Steamctl manifest filename: 359550_359551_1610834739284564851
             Process process = new Process();
             // Configure the process using the StartInfo properties.
             process.StartInfo.FileName = "python.exe";
@@ -140,23 +140,31 @@ namespace ManifestGet
 
         private static void CopyManifests()
         {
-            Console.WriteLine("You are: " + Environment.UserName);
-            Console.WriteLine(@"C:\Users\" + Environment.UserName + @"\AppData\Local\steamctl\steamctl\Cache\manifests");
+            Console.WriteLine("Your PC Name is: " + Environment.UserName);
+            //Console.WriteLine(@"C:\Users\" + Environment.UserName + @"\AppData\Local\steamctl\steamctl\Cache\manifests");
             string SteamCTLmanifestsPath = "Users\\" + Environment.UserName + "\\AppData\\Local\\steamctl\\steamctl\\Cache\\manifests";
             string[] fileArray = Directory.GetFiles(@"C:\" + SteamCTLmanifestsPath, "*.*");
-            Console.WriteLine(SteamCTLmanifestsPath);
+            Console.WriteLine("Steamctl manifest path is: " + SteamCTLmanifestsPath);
             foreach (string file in fileArray)
             {
+                //Get the FileName from the full file
+                //Like: C:\asd\Yep.txt => Yep 
                 string fileNAME = Path.GetFileName(file);
                 if (file.Contains(".manifest"))
                 {
+                    //Any reason why this line need to be all three place? -slejm
+                    if (!File.Exists(CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest"))
+                    {
+                        File.Copy(file + ".manifest", CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest");
+                    }
                     continue;
                 }
                 else
                 {
-                    if (File.Exists(file + ".manifest") == false)
+                    if (File.Exists(file + ".manifest") == false) //if .manifest file not exist
                     {
-                        File.Move(file, file + ".manifest");
+                        File.Move(file, file + ".manifest"); //This mean rename in other way, but it keeping the original file
+                        //Any reason why this line need to be all three place? -slejm
                         if (!File.Exists(CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest"))
                         {
                             File.Copy(file + ".manifest", CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest");
@@ -164,6 +172,7 @@ namespace ManifestGet
                     }
                     else
                     {
+                        //Any reason why this line need to be all three place? -slejm
                         if (!File.Exists(CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest"))
                         {
                             File.Copy(file + ".manifest", CurrentDir + "\\ManifestFiles\\" + fileNAME + ".manifest");
