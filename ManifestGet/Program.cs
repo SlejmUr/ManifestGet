@@ -145,6 +145,11 @@ namespace ManifestGet
             string SteamCTLmanifestsPath = "Users\\" + Environment.UserName + "\\AppData\\Local\\steamctl\\steamctl\\Cache\\manifests";
             string[] fileArray = Directory.GetFiles(@"C:\" + SteamCTLmanifestsPath, "*.*");
             Console.WriteLine("Steamctl manifest path is: " + SteamCTLmanifestsPath);
+            //Check if "ManifestFiles" directory exist in curdir, if not create it
+            if (!Directory.Exists(CurrentDir + "\\ManifestFiles"))  
+            {  
+                Directory.CreateDirectory(CurrentDir + "\\ManifestFiles");  
+            }
             foreach (string file in fileArray)
             {
                 //Get the FileName from the full file
