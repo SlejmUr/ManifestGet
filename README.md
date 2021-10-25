@@ -44,4 +44,5 @@ Parameter | Description
 -a or -app or -AppID \<#> | AppID of the wanted App
 -d or -depot or -DepotID \<#> | DepotID of the App
 -m or -manifest or -ManifestID \<#> | ManifestID of the depot
--fl or -filelist \<path> | path of the manifestID's in txt
+-fl or -filelist or -manifestlist \<path> | path of the manifestID's in txt
+-u or -user or -username \<steam username> | Username to get the manifest
