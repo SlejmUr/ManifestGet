@@ -41,4 +41,7 @@ So like : `D:\ManifestGet\ManifestFiles`
 ### Parameters
 Parameter | Description
 --------- | -----------
--a or -app or -AppID \<#> | AppID for get info
+-a or -app or -AppID \<#> | AppID of the wanted App
+-d or -depot or -DepotID \<#> | DepotID of the App
+-m or -manifest or -ManifestID \<#> | ManifestID of the depot
+-fl or -filelist \<path> | path of the manifestID's in txt
