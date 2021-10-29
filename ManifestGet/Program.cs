@@ -14,13 +14,13 @@ namespace ManifestGet
             Console.WriteLine("\tManifestGet!\n");
             if (args.Length == 0)
             {
-                Console.WriteLine("Please type your UserName");
+                Console.WriteLine("Please type your UserName (your steam login name)");
                 username = Console.ReadLine();
-                Console.WriteLine("Please type AppID");
+                Console.WriteLine("Please type AppID (leave empty to use default: 359550)");
                 AppID = Console.ReadLine();
-                Console.WriteLine("Please type DepotID");
+                Console.WriteLine("Please type DepotID (leave empty to use default: 359551)");
                 DepotID = Console.ReadLine();
-                Console.WriteLine("Please type ManifestID or Path/filename to manifestID list (txt)");
+                Console.WriteLine("Please type ManifestID or Path/filename to manifestID list (txt) \n(make sure you write the path and at the end your filename with the extension if you have the file.)");
                 file_or_ID = Console.ReadLine();
                 if (username == "") { Console.WriteLine("No username, no decryption, try again. Write your username again!"); username = Console.ReadLine(); } //Add anonym user, but it will be not decrypt anything
                 if (AppID == "") { AppID = "359550"; } //Siege default
